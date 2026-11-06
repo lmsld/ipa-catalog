@@ -1,20 +1,31 @@
 services:
   ipa-catalog:
-    build: .
-    ports:
-      - "${BIND_ADDRESS:-127.0.0.1}:${PORT:-8000}:8000"
+    image: ghcr.io/lmsld/ipa-catalog:latest
+    container_name: ipa-catalog
     environment:
-      SOURCE_NAME: "${SOURCE_NAME:-My IPA Catalog}"
-      SOURCE_IDENTIFIER: "${SOURCE_IDENTIFIER:-com.example.ipacatalog}"
-      SOURCE_DESCRIPTION: "${SOURCE_DESCRIPTION:-}"
-      PUBLIC_BASE_URL: "${PUBLIC_BASE_URL:-}"
-      ADMIN_TOKEN: "${ADMIN_TOKEN:-}"
-      DATA_FILE_PATH: /data/catalog.yaml
-      APP_PORT: "8000"
-    volumes:
-      - ipa-catalog-data:/data
-    stop_grace_period: 40s
+      - ADMIN_TOKEN=${ADMIN_TOKEN}
     restart: unless-stopped
-
+    ports:
+      - 8000:8000
+    # networks:
+    #   cloudflared_default:
+    volumes:
+      - ipa-catalog:/data
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://localhost:8000/health', timeout=5)"
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
 volumes:
-  ipa-catalog-data:
+  ipa-catalog:
+    name: ipa-catalog
+# networks:
+#   cloudflared_default:
+#     external: true

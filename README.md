@@ -20,6 +20,13 @@ podman run -e ADMIN_TOKEN=never-gonna-give-you-up \
 -v ./data:/data -p 8000:8000 ipa-catalog
 ```
 
+## Run with docker compose
+```
+wget https://raw.githubusercontent.com/lmsld/ipa-catalog/refs/heads/main/docker-compose.yml
+echo "ADMIN_TOKEN=$(openssl rand -base64 32)" > .env
+docker compose up -d
+```
+
 ## Additional information
 
 `./data/catalog.yaml` is used to keep a record of repo and ipa.
