@@ -30,3 +30,6 @@ docker compose up -d
 ## Additional information
 
 `./data/catalog.yaml` is used to keep a record of repo and ipa.
+
+## AI Usages
+Yep, the app is fully coded by github copilot free plan.
