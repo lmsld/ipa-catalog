@@ -3,7 +3,7 @@
 A self-hosted web app that publishes a SideStore/AltStore-compatible JSON source
 from direct IPA URLs and public GitHub releases.
 By default, the landing page lists all the ipa added/found.
-Admin page is at /admin and is protecte with an env `ADMIN_TOKEN` secret.
+Admin page is at /admin and is protected with an env `ADMIN_TOKEN` secret.
 
 ## Build instruction
 
