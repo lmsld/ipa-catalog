@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#101116">
+    <title>Manage catalog · IPA Catalog</title>
+    <link rel="stylesheet" href="/static/styles.css">
+  </head>
+  <body>
+    <main class="shell admin-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">CATALOG ADMINISTRATION</p>
+          <h1>Manage catalog</h1>
+          <p class="lede">Add IPA links or GitHub repositories and manage update checks.</p>
+        </div>
+        <a class="source-link" href="/">View public catalog ↗</a>
+      </header>
+
+      <section id="login-panel" class="panel">
+        <h2>Admin token</h2>
+        <p>Enter the ADMIN_TOKEN configured for this service.</p>
+        <form id="login-form" class="token-entry">
+          <input id="admin-token" type="password" aria-label="Admin token" autocomplete="current-password" required placeholder="Admin token">
+          <button class="button primary" type="submit">Unlock</button>
+        </form>
+        <p id="login-message" class="message" role="status"></p>
+      </section>
+
+      <div id="admin-content" hidden>
+        <details class="panel admin-section">
+          <summary class="admin-section-summary">
+            <div>
+              <p class="eyebrow">PUBLIC SOURCE</p>
+              <h2 id="source-settings-heading">Repository details</h2>
+            </div>
+          </summary>
+          <div class="admin-section-content">
+            <form id="source-settings-form" class="add-form">
+              <label>Repository name
+                <input name="name" required maxlength="200">
+              </label>
+              <label>Repository identifier
+                <input name="identifier" required maxlength="255" placeholder="com.example.catalog">
+                <span class="label-note">Changing this may require users to remove and re-add the source.</span>
+              </label>
+              <label class="wide">Description
+                <textarea name="description" rows="3" maxlength="10000" placeholder="Describe this source for visitors."></textarea>
+              </label>
+              <label class="wide">Add button label
+                <input name="add_button_label" required maxlength="60" placeholder="Add to…">
+              </label>
+              <fieldset class="wide store-options-editor">
+                <legend>Available store options</legend>
+                <p class="label-note">Each option uses its app's URL scheme to open the source link.</p>
+                <div id="store-options" class="store-options-list"></div>
+                <button id="add-store-option" class="button secondary" type="button">Add store option</button>
+              </fieldset>
+              <button class="button primary wide submit-button" type="submit">Save repository details</button>
+            </form>
+            <p id="source-settings-message" class="message" role="status"></p>
+          </div>
+        </details>
+
+        <details class="panel admin-section" open>
+          <summary class="admin-section-summary">
+            <div>
+              <p class="eyebrow">NEW LISTING</p>
+              <h2>Add IPA or GitHub repository</h2>
+            </div>
+            <span class="frequency-note">Default check interval: 24 hours</span>
+          </summary>
+          <div class="admin-section-content">
+            <form id="add-form" class="add-form">
+              <label class="wide">IPA URL or GitHub repository
+                <input name="ipa_url" type="url" required placeholder="https://example.com/app.ipa or https://github.com/owner/repo">
+              </label>
+              <label>Developer name <span class="label-note">Optional; read from IPA metadata when available.</span>
+                <input name="developer_name" maxlength="200" placeholder="Can be left blank">
+              </label>
+              <label>Check frequency
+                <select name="poll_interval_hours">
+                  <option value="24" selected>Every day</option>
+                  <option value="12">Every 12 hours</option>
+                  <option value="6">Every 6 hours</option>
+                  <option value="1">Every hour</option>
+                  <option value="168">Every week</option>
+                </select>
+              </label>
+              <label class="wide">Description
+                <textarea name="description" rows="3" placeholder="Not usually embedded in an IPA; add the app description here."></textarea>
+              </label>
+              <button class="button primary wide submit-button" type="submit">Fetch release and add app(s)</button>
+            </form>
+            <p id="form-message" class="message" role="status"></p>
+          </div>
+        </details>
+
+        <section class="catalog-section" aria-labelledby="apps-heading">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">MANAGEMENT</p>
+              <h2 id="apps-heading">Apps and update checks</h2>
+            </div>
+            <button id="refresh" class="button secondary" type="button">Refresh list</button>
+          </div>
+          <div id="managed-apps" class="apps-list"></div>
+          <p id="manage-empty-state" class="empty-state">No apps yet. Add an IPA or GitHub URL above.</p>
+        </section>
+      </div>
+    </main>
+    <script src="/static/admin.js" defer></script>
+  </body>
+</html>

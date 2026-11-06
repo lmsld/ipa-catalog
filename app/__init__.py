@@ -1,0 +1,1 @@
+"""IPA Catalog application."""

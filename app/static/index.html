@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#101116">
+    <title>IPA Catalog</title>
+    <link rel="stylesheet" href="/static/styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div>
+          <h1 id="source-name">IPA Catalog</h1>
+          <p id="source-description" class="lede">Apps in this source, ready to install.</p>
+        </div>
+        <div class="source-actions">
+          <details class="store-picker">
+            <summary id="add-to-label" class="button primary">Add to…</summary>
+            <div id="store-menu" class="store-menu" aria-label="Choose an app"></div>
+          </details>
+        </div>
+      </header>
+
+      <section class="catalog-section" aria-labelledby="catalog-heading">
+        <div class="section-heading">
+          <div>
+            <h2 id="catalog-heading">Apps</h2>
+          </div>
+        </div>
+        <div id="public-apps" class="apps-list"></div>
+        <p id="public-empty-state" class="empty-state">Loading apps…</p>
+      </section>
+
+    </main>
+    <script src="/static/app.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,20 @@
+services:
+  ipa-catalog:
+    build: .
+    ports:
+      - "${BIND_ADDRESS:-127.0.0.1}:${PORT:-8000}:8000"
+    environment:
+      SOURCE_NAME: "${SOURCE_NAME:-My IPA Catalog}"
+      SOURCE_IDENTIFIER: "${SOURCE_IDENTIFIER:-com.example.ipacatalog}"
+      SOURCE_DESCRIPTION: "${SOURCE_DESCRIPTION:-}"
+      PUBLIC_BASE_URL: "${PUBLIC_BASE_URL:-}"
+      ADMIN_TOKEN: "${ADMIN_TOKEN:-}"
+      DATA_FILE_PATH: /data/catalog.yaml
+      APP_PORT: "8000"
+    volumes:
+      - ipa-catalog-data:/data
+    stop_grace_period: 40s
+    restart: unless-stopped
+
+volumes:
+  ipa-catalog-data:
